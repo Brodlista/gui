@@ -246,26 +246,21 @@ class DCMViewer():
         # Perform the LCP calculations
         self.sum_img, self.diff_img = self.calculate_sum_diff_images(roi1, roi2)
         self.signal_std_dev, self.noise_std_dev, self.snr, self.depth = self.calculate_std_dev(self.sum_img, self.diff_img)
-        # Calculate moving averages
-        window_size = 7
-        ma_noise = [np.mean(self.noise_std_dev[i+4:i+4+window_size]) for i in range(len(self.noise_std_dev)-10)]
-        ma_signal = [np.mean(self.signal_std_dev[i+4:i+4+window_size]) for i in range(len(self.signal_std_dev)-10)]
-        ma_snr = [np.mean(self.snr[i+4:i+4+window_size]) for i in range(len(self.snr)-10)]
-        ma_depth = [self.depth[i+10] for i in range(len(self.depth)-10)]
-        ma_depth = ma_depth[:len(ma_noise)]
-        # Find maximum values for the plot
-        max_y = max(max(ma_noise), max(ma_signal), max(ma_snr))
-
+        
         lcp = self.determine_lcp_depths(self.snr, self.depth, mm_per_pix)
         print(f'LCP: {lcp}')
 
         fig, ax1 = plt.subplots()
-        ax1.plot([d * mm_per_pix for d in ma_depth], 1.2 * max_y, 'r', label='Normalized Noise Standard Deviation')
-        ax1.plot([d * mm_per_pix for d in ma_depth], 1.2 * max_y, 'orange', label='Normalized Signal Standard Deviation')
-        ax1.plot([d * mm_per_pix for d in ma_depth], 1.2 * max_y, 'b', label='Normalized SNR')
+        ax1.plot([d * mm_per_pix for d in self.depth], self.noise_std_dev, 'r', label='Noise Standard Deviation')
+        ax1.plot([d * mm_per_pix for d in self.depth], self.signal_std_dev, 'orange', label='Signal Standard Deviation')
         ax1.set_xlabel('Depth (mm)')
-        ax1.set_ylabel('Normalized Values')
+        ax1.set_ylabel('Standard Deviation')
         ax1.legend(loc='upper right')
+        
+        ax2 = ax1.twinx()
+        ax2.plot([d * mm_per_pix for d in self.depth], self.snr, 'b', label='SNR')
+        ax2.set_ylabel('SNR')
+        ax2.legend(loc='upper left')
         plt.title('LCP Depth Profile')
         plt.tight_layout()
         plt.show()
@@ -333,12 +328,10 @@ class DCMViewer():
         depth = list(range(10, 10 + number_of_steps * window_size, window_size))
         self.noise_std_dev = medfilt(self.noise_std_dev, 7)
         self.signal_std_dev = medfilt(self.signal_std_dev, 7)    
-        # Apply moving average filter
 
         return self.signal_std_dev, self.noise_std_dev, self.snr, depth
 
     def determine_lcp_depths(self, snr, depth, mm_per_pix):
-        # determine LCP depth
         # determine LCP depth
         threshold = 2  # or whatever your threshold is
         for i in range(len(snr)):
