@@ -11,13 +11,13 @@ USToolbox is a Python application for [describe what your application does].
 
 ## Installation
 
-### Clone the repository to your local machine:
+1. Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/yourusername/USToolbox.git
-
-2. Install the required dependencies. You can use a virtual environment to manage dependencies:
 ```
+2. Install the required dependencies. You can use a virtual environment to manage dependencies:
+
 ```bash
 cd USToolbox
 python -m venv venv
