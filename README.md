@@ -1,54 +1,38 @@
-# USToolboxgit pull
-USToolbox is a Python application for [describe what your application does].
+# USToolbox
 
-## Table of Contents
+## Overview
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+This comprehensive suite of programs is specifically designed to revolutionize and streamline the quality control (QC) procedures in ultrasound (US) imaging. Traditionally, QC in ultrasound has been a labour-intensive process, relying on manual measurements conducted by human observers. However, our innovative program introduces a sophisticated and automated alternative that increases efficiency and enhances the QC process's objectivity.
 
-## Installation
+## Features
 
-1. Clone the repository to your local machine:
+- **Automated Analysis:** The suite automates the analysis of captured US images.
+  
+- **Performance Parameters:** It estimates key performance parameters, including resolution, penetration depths, and high and low contrast sensitivity.
 
-```bash
-git clone https://github.com/yourusername/USToolbox.git
-```
-2. Install the required dependencies. You can use a virtual environment to manage dependencies:
+- **Test Object:** Utilizes the Multipurpose Phantom for standardized image acquisition.
 
-```bash
-cd USToolbox
-python -m venv venv
-source venv/bin/activate  # On Windows, use: .\venv\Scripts\activate
-pip install -r requirements.txt
-```
-### Usage
-To run the application, execute the gui.py script:
+## Usage
 
-```bash
-python gui.py
-```
+1. **Image Acquisition:**
+   - Capture images of the test object on an ultrasound scanner.
+   - Transfer the DICOM study to the PC with the USToolbox software.
 
-Features
-- LCP
-- DICOM viewer
-- HCS
-- LCS
-Contributing
-If you'd like to contribute to this project, please follow these steps:
+2. **Automated Tests:**
+   - Apply the suite for automated tests covering resolution, low- and high-contrast penetration, and low- and high-contrast sensitivity.
 
-Fork the repository
-Create a new branch (git checkout -b feature/yourfeature)
-Make your changes and commit them (git commit -m 'Add some feature')
-Push to the branch (git push origin feature/yourfeature)
-Create a new Pull Request
-License
+3. **Validation:**
+   - Preliminary validation involves images from different probes operating at various frequencies.
+   - The system provides 95% confidence intervals for the measurements.
 
+4. **Multicentre Validation:**
+   - Ongoing validation includes a multicentre approach to ensure reliability across different settings.
 
+## Significance
 
+- **Improved Reproducibility:** The suite enhances reproducibility, reducing intraobserver and interobserver variation.
 
+- **Increased Information:** Detailed information on the visibility of targets is provided, offering advantages over visual assessments.
 
-
+- **Multicentre Validation:** Ongoing validation efforts underscore the commitment to ensuring system reliability.
 
